@@ -140,42 +140,6 @@
 		<jdk.version>1.8</jdk.version>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>SemaTree Repository</id>
-			<url>http://m2-repo.sematree.com/repository</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>SemaTree Repository Snapshot</id>
-			<url>http://m2-repo.sematree.com/snapshot-repository</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
-	
-	<distributionManagement>
-		<repository>
-			<id>sematree-repo</id>
-			<name>Maven Central Repository</name>
-			<url>scpexe://m2-repo.sematree.com/home/apache/www/m2/saff-extras</url>
-		</repository>
-		<snapshotRepository>
-			<id>sematree-snapshots</id>
-			<name>Sematree Development Repository</name>
-			<url>scpexe://m2-repo.sematree.com/home/apache/www/m2/snapshot-saff-extras</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<profiles>
 		<profile>
