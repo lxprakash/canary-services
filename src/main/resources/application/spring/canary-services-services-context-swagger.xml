@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd 
+                           http://www.springframework.org/schema/tx 
+                           http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- Used to support kubernetes deployment -->
+	<context:property-placeholder ignore-resource-not-found="false" system-properties-mode="OVERRIDE" location="file:/secret/ig-canary-services.properties" />
+
+    <!-- Swagger Beans -->
+    <bean id="apiListingResourceJSON" class="io.swagger.jaxrs.listing.ApiListingResource"/>
+    <bean id="apiDeclarationProvider" class="io.swagger.jaxrs.listing.SwaggerSerializers"/>
+	
+	<!-- Swagger Configuration -->
+    <bean id="beanConfig" class="io.swagger.jaxrs.config.BeanConfig">
+        <property name="schemes"           value="${SWAGGER_SCHEMES}"/>
+        <property name="host"              value="${SWAGGER_HOST}"/>
+        <property name="basePath"          value="${SWAGGER_BASEPATH}"/>
+        <property name="resourcePackage"   value="${SWAGGER_RESOURCEPACKAGE}"/>
+        <property name="version"           value="${SWAGGER_INFO_VERSION}"/>
+        <property name="title"             value="${SWAGGER_INFO_TITLE}"/>
+        <property name="description"       value="${SWAGGER_INFO_DESCRIPTION}"/>
+        <property name="termsOfServiceUrl" value="${SWAGGER_INFO_TERMSOFSERVICEURL}"/>
+        <property name="contact"           value="${SWAGGER_INFO_CONTACT.NAME}"/>
+        <property name="license"           value="${SWAGGER_INFO_LICENSE.NAME}"/>
+        <property name="licenseUrl"        value="${SWAGGER_INFO_LICENSE.URL}"/>
+        <property name="scan"              value="true"/>
+    </bean>
+</beans>

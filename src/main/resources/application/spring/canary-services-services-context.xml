@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd 
+                           http://www.springframework.org/schema/tx 
+                           http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:component-scan base-package="com.intigna.services.canary.*" />
+	
+	<!-- Used to support kubernetes deployment -->
+	<context:property-placeholder ignore-resource-not-found="false" system-properties-mode="OVERRIDE" location="file:/secret/ig-canary-services.properties" />
+	
+	<!-- Import Other Context XML Files -->
+	<import resource="canary-services-services-context-keycloak.xml" />
+	
+	<!-- ************ JPA configuration *********** -->
+	<tx:annotation-driven transaction-manager = "transactionManager" />
+	
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan">
+        	<list>
+        		<value>com.intigna.services.canary.persistence.entity</value>
+        	</list>
+        </property>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="false" />
+                <property name="databasePlatform" value="${JDBC_DATABASE_PLATFORM}" />
+            </bean>
+        </property>
+        <property name="jpaProperties">
+			<props>
+		    	<prop key="hibernate.default_schema">"${SCHEMA_NAME}"</prop>
+			</props>
+		</property>
+    </bean>
+    
+    <!--  Application Configuration Data - Data Source Information -->
+	<bean id="serviceConfigurationDataProxy" class="com.datacode2.microservices.commons.persistence.entity.data.ServiceConfigurationData">
+		<property name="schemaName"  value="${SCHEMA_NAME}"/>
+	</bean>
+	
+	<!--  Entity Manager Definitions -->
+	<bean id="uniqueEntityConstraintPersistenceServiceProxy"           class="com.intigna.services.canary.common.persistence.impl.admin.UniqueEntityConstraintPersistenceService" />
+	<bean id="referenceUniqueConstraintPersistenceServiceProxy"        class="com.intigna.services.canary.common.persistence.impl.admin.ReferenceUniqueConstraintPersistenceService"/>
+	<bean id="twoReferenceUniqueConstraintPersistenceServiceProxy"     class="com.intigna.services.canary.common.persistence.impl.admin.TwoReferenceUniqueConstraintPersistenceService" />
+	<bean id="healthCheckPersistenceServiceProxy"                      class="com.intigna.services.canary.healthcheck.persistence.HealthCheckPersistenceService" />
+	<bean id="adminBaseEntityPersistenceServiceProxy"                  class="com.intigna.services.canary.persistence.em.admin.CanaryAdminBaseEntityPersistenceService" />
+	
+	<!--  DAO Definitions -->
+	<bean id="healthCheckDAOProxy"                                     class="com.intigna.services.canary.healthcheck.dao.HealthCheckDAOImpl" />
+	
+	<!--  MESSAGE RESOURCES SPRING CONFIGURATION -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="defaultEncoding" value="UTF-8"/>
+	    <property name="basenames">
+        	<list>
+            	<value>ValidationMessages</value> <!--  The name of the message file. The suffix is calculated based on the locale. -->
+        	</list>
+    	</property>
+    </bean>
+    
+    <!-- Data Source Configuration -->
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"  destroy-method="close"> 
+		<property name="driverClassName" value="${JDBC_DRIVER_CLASS_NAME}" />
+		<property name="url"             value="${JDBC_URL_CONNECTION}" />
+		<property name="username"        value="${JDBC_USER_NAME}" />
+		<property name="password"        value="${JDBC_PW}" />
+		<property name="validationQuery" value="SELECT 1"/>
+	    <property name="removeAbandoned" value="true"/>
+	    <property name="testOnBorrow"    value="true" />
+	    <property name="maxActive" 		 value="${JDBC_MAX_ACTIVE_CONNECTIONS}"/>
+	    <property name="maxIdle" 		 value="${JDBC_MAX_IDLE_CONNECTIONS}"/>
+	    <property name="minIdle" 		 value="${JDBC_MIN_IDLE_CONNECTIONS}"/>
+	    <property name="initialSize" 	 value="${JDBC_INITIAL_POOL_SIZE}"/>
+	</bean>
+</beans>
