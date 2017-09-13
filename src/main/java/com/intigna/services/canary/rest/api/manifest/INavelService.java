@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.cache.NoCache;
 
-import com.intigna.services.canary.rest.data.ServiceManifest;
+import com.datacode2.microservices.commons.rest.data.healthcheck.ServiceManifest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

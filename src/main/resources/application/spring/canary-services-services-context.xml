@@ -14,7 +14,8 @@
 	<context:component-scan base-package="com.intigna.services.canary.*" />
 	
 	<!-- Used to support kubernetes deployment -->
-	<context:property-placeholder ignore-resource-not-found="false" system-properties-mode="OVERRIDE" location="file:/secret/ig-canary-services.properties" />
+	<context:property-placeholder ignore-resource-not-found="false" 
+		system-properties-mode="OVERRIDE" location="file:/secret/ig-canary-services.properties" />
 	
 	<!-- Import Other Context XML Files -->
 	<import resource="canary-services-services-context-keycloak.xml" />
