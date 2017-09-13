@@ -22,13 +22,13 @@ import io.swagger.annotations.ApiResponses;
  * @author adevoe
  *
  */
-@Path("/hc1")
-@Api(value = "/hc1")
+@Path("/navel")
+@Api(value = "/navel")
 public interface INavelService
 {
 	 
 	@GET
-	@Path("/xx")
+	@Path("/servicemanifest")
 	@NoCache
 	@ApiOperation(value = "Fetches based the id.", response = ServiceManifest.class)
 	@ApiResponses({
