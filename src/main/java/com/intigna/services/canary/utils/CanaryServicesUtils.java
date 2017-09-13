@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class CanaryServicesUtils
 {
+	
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(CanaryServicesUtils.class);
 	
@@ -20,4 +21,6 @@ public final class CanaryServicesUtils
 	{
 		throw new IllegalStateException("Canary Services Utility class");
 	}
+	
+	
 }
