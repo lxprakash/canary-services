@@ -30,7 +30,7 @@ extends CommonContextListener implements ServletContextListener
 		super.contextInitialized(sce);
 		
 		//To Configure, Execute, and Update Latest Changes in Liquibase.
-		LiquibaseConfiguration.configureLiquibase();
+		//LiquibaseConfiguration.configureLiquibase();
 
 		// Move this to common?
 		//To Set Default TimeZone to UTC.
