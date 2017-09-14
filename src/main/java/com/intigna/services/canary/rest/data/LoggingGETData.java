@@ -21,8 +21,15 @@ public class LoggingGETData {
 	public void setTheDateCreated(DateGETData theDateCreated) {
 		this.theDateCreated = theDateCreated;
 	}
+	public String getExceptionMessage() {
+		return exceptionMessage;
+	}
+	public void setExceptionMessage(String exceptionMessage) {
+		this.exceptionMessage = exceptionMessage;
+	}
 	private String level;
 	private String category;
+	private String exceptionMessage = null;
 	private DateGETData theDateCreated;
 	
 	

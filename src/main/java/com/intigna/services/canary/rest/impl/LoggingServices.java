@@ -55,6 +55,7 @@ implements ILoggingServices
 		LoggingGETData m = new LoggingGETData();
 		m.setCategory(category);
 		m.setLevel(level);
+		m.setExceptionMessage(exceptionMessage);
 		m.setTheDateCreated(CommonServiceUtils.newDateGETData(new Date(), null));
 		return m;
 	}
