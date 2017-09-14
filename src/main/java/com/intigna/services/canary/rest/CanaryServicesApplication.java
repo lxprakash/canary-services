@@ -8,8 +8,8 @@ import javax.ws.rs.core.Application;
 
 import com.datacode2.microservices.commons.CommonServiceUtils;
 import com.intigna.services.canary.rest.features.HealthCheckFeature;
+import com.intigna.services.canary.rest.impl.LoggingServices;
 import com.intigna.services.canary.rest.impl.healthchecks.ApplicationHealthCheckServices;
-import com.intigna.services.canary.rest.impl.manifest.NavelServices;
 
 @ApplicationPath("/canary")
 public class CanaryServicesApplication extends Application
@@ -29,7 +29,7 @@ public class CanaryServicesApplication extends Application
 		set.add(ApplicationHealthCheckServices.class);
 		
 		//Rest Impl Service Classes.
-		set.add(NavelServices.class);
+		set.add(LoggingServices.class);
 		
 		return set;
 	}
