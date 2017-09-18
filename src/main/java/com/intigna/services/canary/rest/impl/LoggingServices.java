@@ -9,8 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.datacode2.microservices.commons.CommonServiceUtils;
+import com.datacode2.microservices.commons.rest.data.RequestDetails;
+import com.datacode2.microservices.commons.rest.data.logging.LoggingGETData;
 import com.intigna.services.canary.rest.api.ILoggingServices;
-import com.intigna.services.canary.rest.data.LoggingGETData;
 
 
 /**
@@ -57,11 +58,22 @@ implements ILoggingServices
 		m.setLevel(level);
 		m.setMessage(message);
 		m.setExceptionMessage(exceptionMessage);
-		m.setTheDateCreated(CommonServiceUtils.newDateGETData(new Date(), null));
 		return m;
 	}
 
-	// TODO : Load the logging events from elastic service for display
-	// 
+	@Override
+	public LoggingGETData addExtraInfo(String category, String message, String countStr) throws Exception {
+		if (countStr == null || countStr.length() == 0) {
+			countStr = "1";
+		}
+		Integer count = new Integer(countStr);
+		for (int i = 0; i < count.intValue(); i++) {
+			RequestDetails.extraInfo(category, i + ". " + message );
+		}
+		LoggingGETData gd = new LoggingGETData();
+		return gd;
+	}
+
+	
 	 
 }
