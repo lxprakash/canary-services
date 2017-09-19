@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiResponses;
  */
 @Path("/logger")
 @Api(value = "/logger")
-public interface ILoggingServices
+public interface ICanaryLoggerServices
 {
 	 
 	@GET
@@ -59,6 +59,7 @@ public interface ILoggingServices
 			@PathParam("message")
 			String message,
 			
+			@QueryParam("exc")
 			@ApiParam(name = "exc", 
 			value = "non-null and the logger will call log.info(message, new Exception(exceptionMessage)); ",
 			required = false) 

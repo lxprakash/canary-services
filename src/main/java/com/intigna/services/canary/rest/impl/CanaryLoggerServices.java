@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.datacode2.microservices.commons.CommonServiceUtils;
 import com.datacode2.microservices.commons.rest.data.RequestDetails;
 import com.datacode2.microservices.commons.rest.data.logging.LoggingGETData;
-import com.intigna.services.canary.rest.api.ILoggingServices;
+import com.intigna.services.canary.rest.api.ICanaryLoggerServices;
 
 
 /**
@@ -19,10 +19,10 @@ import com.intigna.services.canary.rest.api.ILoggingServices;
  * @author adevoe
  * 
  */
-public class LoggingServices 
-implements ILoggingServices 
+public class CanaryLoggerServices 
+implements ICanaryLoggerServices 
 {
-	private final static Logger logger = LoggerFactory.getLogger(LoggingServices.class);
+	private final static Logger logger = LoggerFactory.getLogger(CanaryLoggerServices.class);
 
 	@Override
 	public LoggingGETData logInfo(String level, String category, String message, String exceptionMessage) throws Exception {
